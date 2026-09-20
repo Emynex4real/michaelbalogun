@@ -1,0 +1,302 @@
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0.5rem var(--gutter);
+}
+
+.identity {
+  display: flex;
+  align-items: baseline;
+  gap: 0.625rem;
+  /* Must be allowed to shrink, or the role text pushes the menu button off the
+     side of a phone screen and the navigation becomes unreachable. */
+  min-width: 0;
+  flex: 0 1 auto;
+  overflow: hidden;
+}
+
+.mark {
+  width: 9px;
+  height: 9px;
+  flex: none;
+  border: 1px solid var(--accent);
+  background: var(--accent-soft);
+  align-self: center;
+}
+
+.name {
+  font-size: var(--step-small);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.role {
+  display: none;
+  font-size: var(--step-micro);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nav {
+  display: none;
+  gap: 1.75rem;
+}
+
+.navLink {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  font-size: var(--step-micro);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  padding-block: 0.25rem;
+  transition: color 200ms var(--ease);
+}
+
+.navLink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 320ms var(--ease);
+}
+
+.navLink:hover {
+  color: var(--ink);
+}
+
+.navLink:hover::after {
+  transform: scaleX(1);
+}
+
+.navIndex {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  /* Never compressed away: this is the only route into the navigation on a
+     narrow screen. */
+  flex: none;
+}
+
+.clock {
+  display: none;
+  font-size: var(--step-micro);
+  letter-spacing: 0.08em;
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.control {
+  display: none;
+  font-size: var(--step-micro);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  border: 1px solid var(--line);
+  padding: 0.3rem 0.6rem;
+  transition: color 200ms var(--ease), border-color 200ms var(--ease);
+}
+
+.control:hover {
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+
+.control[aria-pressed="false"] {
+  color: var(--ink-faint);
+  border-style: dashed;
+}
+
+.menuButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  /* A 44px target: the bar is the one thing every phone visitor has to hit. */
+  min-height: 44px;
+  padding: 0 0.85rem;
+  font-size: var(--step-micro);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+  transition: border-color 200ms var(--ease);
+}
+
+.menuButton:hover {
+  border-color: var(--accent);
+}
+
+.menuBars {
+  display: grid;
+  gap: 3px;
+  width: 14px;
+}
+
+.menuBars span {
+  display: block;
+  height: 1px;
+  background: currentColor;
+}
+
+/* ---- Mobile index sheet ---- */
+
+.sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem var(--gutter) max(1.5rem, env(safe-area-inset-bottom));
+  animation: sheetIn 260ms var(--ease);
+}
+
+@keyframes sheetIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheet {
+    animation: none;
+  }
+}
+
+.sheetHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+/* Sized for a thumb, and used both in the sheet head and the control row. */
+.sheetControl {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 0.9rem;
+  font-size: var(--step-micro);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  border: 1px solid var(--line);
+  transition: color 200ms var(--ease), border-color 200ms var(--ease);
+}
+
+.sheetControl:hover {
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+
+.sheetControl[aria-pressed="false"] {
+  color: var(--ink-faint);
+  border-style: dashed;
+}
+
+.sheetList {
+  list-style: none;
+  flex: 1;
+  /* A short phone in landscape must still reach Contact. */
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-top: 0.25rem;
+}
+
+.sheetLink {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  min-height: 56px;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.sheetIndex {
+  font-size: var(--step-micro);
+  color: var(--accent);
+  letter-spacing: 0.1em;
+}
+
+.sheetName {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: var(--step-h3);
+  letter-spacing: -0.01em;
+}
+
+.sheetArrow {
+  margin-left: auto;
+  color: var(--ink-faint);
+}
+
+.sheetControls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-top: 1rem;
+}
+
+.sheetFoot {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1rem;
+}
+
+/* The role only fits alongside the name once there is room for both. */
+@media (min-width: 560px) {
+  .role {
+    display: block;
+  }
+}
+
+@media (min-width: 900px) {
+  .inner {
+    padding-block: 0.75rem;
+  }
+
+  .nav,
+  .clock,
+  .control {
+    display: inline-flex;
+  }
+
+  .menuButton {
+    display: none;
+  }
+}

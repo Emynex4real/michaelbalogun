@@ -1,0 +1,50 @@
+.rule {
+  display: none;
+}
+
+@media (min-width: 1200px) and (pointer: fine) {
+  .rule {
+    display: block;
+    position: fixed;
+    top: 5.5rem;
+    bottom: 3rem;
+    right: calc(var(--gutter) / 2);
+    width: 26px;
+    z-index: 30;
+    pointer-events: none;
+  }
+
+  .track {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 12px;
+    width: 13px;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      var(--line-strong) 0 1px,
+      transparent 1px 14px
+    );
+    opacity: 0.5;
+  }
+
+  .cursor {
+    position: absolute;
+    right: 0;
+    width: 26px;
+    height: 1px;
+    background: var(--accent);
+    transition: top 120ms linear;
+  }
+
+  .readout {
+    position: absolute;
+    right: 0;
+    top: 6px;
+    font-size: var(--step-micro);
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    writing-mode: vertical-rl;
+  }
+}

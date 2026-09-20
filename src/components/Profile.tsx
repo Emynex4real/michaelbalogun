@@ -3,9 +3,10 @@ import styles from "./Profile.module.css";
 
 const facts = [
   { field: "Based in", value: site.location },
-  { field: "Studying", value: "Computer & Information Science" },
-  { field: "Founder of", value: "InnovaTeam" },
-  { field: "Works in", value: "TypeScript, React, Node, Postgres, Python" },
+  { field: "Studied", value: "Information Systems" },
+  { field: "Domains", value: "Education · Commerce · Music · ML · Client work" },
+  { field: "Works in", value: "TypeScript, React, Node, PHP, Postgres, Python" },
+  { field: "Also", value: "Founder of InnovaTeam" },
   { field: "Open to", value: site.openTo.join(" · ") },
 ];
 
